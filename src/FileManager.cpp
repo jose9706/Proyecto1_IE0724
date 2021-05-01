@@ -1,6 +1,9 @@
 #pragma once
-#include "include/FileManager.h"
-
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <sstream>
+#include <algorithm>
 class FileManager
 {
 private:
@@ -13,7 +16,7 @@ public:
     ~FileManager();
     std::vector<std::string> split(const std::string &s, char delim);
 
-    void printVector(std::vector<std::string> in);
+    void printVector(std::vector<float> in);
 
     void FileParser(std::vector<float>& parsedPuntos);
 
@@ -52,7 +55,7 @@ std::vector<std::string> FileManager::split(const std::string &s, char delim)
     return elems;
 }
 
-void FileManager::printVector(std::vector<std::string> in)
+void FileManager::printVector(std::vector<float> in)
 {
     for (auto i = in.begin(); i != in.end(); i++)
     {
@@ -68,13 +71,15 @@ void FileManager::FileParser(std::vector<float>& parsedPuntos)
         std::string text;
         while (getline(f, text))
         {
-            std::cout << "file text " << text << "\n";
-            text.erase(remove(text.begin(), text.end(), ' '), text.end());
-            std::vector<std::string> tempParsedPuntos = split(text, ',');
-            parsedPuntos.push_back(std::stof(tempParsedPuntos[0])); //Guardo los dos puntos parseados en forma de float 
-            parsedPuntos.push_back(std::stof(tempParsedPuntos[1]));
-            printVector(tempParsedPuntos);
-            //parsedPuntos.push_back();
+            if(text.length() > 1) {
+                std::cout << "file text " << text << "\n";
+                text.erase(remove(text.begin(), text.end(), ' '), text.end());
+                std::vector<std::string> tempParsedPuntos = split(text, ',');
+                parsedPuntos.push_back(std::stof(tempParsedPuntos[0])); //Guardo los dos puntos parseados en forma de float 
+                parsedPuntos.push_back(std::stof(tempParsedPuntos[1]));
+                //printVector(parsedPuntos);
+                //parsedPuntos.push_back();
+            }
         }
     }
     else

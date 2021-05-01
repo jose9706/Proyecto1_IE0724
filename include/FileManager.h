@@ -1,9 +1,9 @@
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <sstream>
 #include <algorithm>
-#include <filesystem>
 
 class FileManager
 {
@@ -17,7 +17,7 @@ public:
 
     std::vector<std::string> split(const std::string &s, char delim);
 
-    void printVector(std::vector<std::string> in);
+    void printVector(std::vector<float> in);
 
     void FileParser(std::vector<float>& parsedPuntos);
 

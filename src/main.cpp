@@ -1,4 +1,4 @@
-#pragma once 
+//#pragma once 
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -19,6 +19,7 @@ int main(int argc, const char **argv)
             FileManager FileProcessor(FILENAME);
             std::vector<float> parsedPuntos;
             FileProcessor.FileParser(parsedPuntos);
+            FileProcessor.printVector(parsedPuntos);
         }
         catch (std::string FILENAME_ERR)
         {
