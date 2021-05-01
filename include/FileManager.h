@@ -1,0 +1,30 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <sstream>
+#include <algorithm>
+#include <filesystem>
+
+class FileManager
+{
+private:
+    std::string FilePath;
+    std::string PATH;
+public:
+    FileManager(std::string FileName);
+    FileManager();
+    ~FileManager();
+
+    std::vector<std::string> split(const std::string &s, char delim);
+
+    void printVector(std::vector<std::string> in);
+
+    void FileParser(std::vector<float>& parsedPuntos);
+
+    void FileChose();
+
+    void setPath(std::string);
+};
+
+
+
