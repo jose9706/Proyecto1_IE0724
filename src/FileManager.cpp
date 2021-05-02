@@ -20,8 +20,6 @@ public:
 
     void FileParser(std::vector<float>& parsedPuntos);
 
-    void FileChose();
-
     void setPath(std::string PATH) {
         this->PATH = PATH;
     }
