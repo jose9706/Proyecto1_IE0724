@@ -1,14 +1,15 @@
-//#pragma once 
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <sstream>
 #include <algorithm>
-#include "include/FileManager.h"
+#include "FileManager.h"
+#include "ConvexHull.h"
 
 
 int main(int argc, const char **argv)
 {
+    ConvexHull Calculator;
     if (argc > 1)
     {
         std::string FILENAME = argv[1];
@@ -20,6 +21,7 @@ int main(int argc, const char **argv)
             std::vector<float> parsedPuntos;
             FileProcessor.FileParser(parsedPuntos);
             FileProcessor.printVector(parsedPuntos);
+            Calculator.CalculateConvexHull(parsedPuntos);
         }
         catch (std::string FILENAME_ERR)
         {

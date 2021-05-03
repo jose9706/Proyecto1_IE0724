@@ -1,4 +1,3 @@
-#pragma once
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -24,7 +23,9 @@ public:
         this->PATH = PATH;
     }
 };
+FileManager::FileManager() {
 
+}
 FileManager::FileManager(std::string FileNamePath)
 {
     FilePath = FileNamePath;
@@ -57,8 +58,9 @@ void FileManager::printVector(std::vector<float> in)
 {
     for (auto i = in.begin(); i != in.end(); i++)
     {
-        std::cout << *i << " " << '\n';
+        std::cout << *i << " ";
     }
+    std::cout << "\n";
 }
 
 void FileManager::FileParser(std::vector<float>& parsedPuntos)
