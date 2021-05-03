@@ -17,7 +17,7 @@ private:
 public:
     ConvexHull(/* args */);
     ~ConvexHull();
-    int CalculateConvexHull(vector<float>& inputPoints);
+    void CalculateConvexHull(vector<float>& inputPoints, vector<float>& outputPoints);
     void pointVectorConstructor(vector<float>& inputPoints, vector<Point_2>& out);
     void convertStringToVectorFloat(std::stringstream& in, vector<float>& result);
 };

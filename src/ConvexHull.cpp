@@ -21,7 +21,7 @@ class ConvexHull : public FileManager
 public:
     ConvexHull();
     ~ConvexHull();
-    int CalculateConvexHull(vector<float>& inputPoints);
+    void CalculateConvexHull(vector<float>& inputPoints, vector<float>& outputPoints);
     void pointVectorConstructor(vector<float>& inputPoints, vector<Point_2>& out);
     void convertStringToVectorFloat(std::stringstream& in, vector<float>& result);
 };
@@ -48,11 +48,10 @@ void ConvexHull::convertStringToVectorFloat(std::stringstream& in, vector<float>
     }
 }
 
-int ConvexHull::CalculateConvexHull(vector<float>& inputPoints)
+void ConvexHull::CalculateConvexHull(vector<float>& inputPoints, vector<float>& outputPoints)
 {
     vector<Point_2> points;
     std::stringstream buffer;
-    vector<float> HullPoints; 
     pointVectorConstructor(inputPoints, points);
     vector<std::size_t> indices(points.size()), out;
     std::iota(indices.begin(), indices.end(), 0);
@@ -63,8 +62,7 @@ int ConvexHull::CalculateConvexHull(vector<float>& inputPoints)
         //std::cout << "points[" << i << "] = " << points[i] << std::endl;
         buffer << points[i] << " ";
     }
-    convertStringToVectorFloat(buffer, HullPoints);
+    convertStringToVectorFloat(buffer, outputPoints);
     std::cout << "Printing result vector \n";
-    printVector(HullPoints);
-    return 0;
+    printVector(outputPoints);
 }

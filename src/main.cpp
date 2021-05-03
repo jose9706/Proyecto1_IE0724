@@ -18,10 +18,10 @@ int main(int argc, const char **argv)
         try
         {
             FileManager FileProcessor(FILENAME);
-            std::vector<float> parsedPuntos;
+            std::vector<float> parsedPuntos, outputPoints;
             FileProcessor.FileParser(parsedPuntos);
             FileProcessor.printVector(parsedPuntos);
-            Calculator.CalculateConvexHull(parsedPuntos);
+            Calculator.CalculateConvexHull(parsedPuntos, outputPoints);
         }
         catch (std::string FILENAME_ERR)
         {
