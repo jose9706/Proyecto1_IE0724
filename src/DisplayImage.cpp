@@ -12,7 +12,7 @@ void MyLine( Mat img, Point start, Point end );
 
 int main (void){
     char hull_window[] = "Drawing: Convex Hull";
-    vector <float> puntos(8) = {0, 0, 10, 0, 10, 10, 0, 10};
+    vector <float> puntos{0, 0, 10, 0, 10, 10, 0, 10};
     int w = *max_element(puntos.begin(), puntos.end())+10;
     Mat hull_image = Mat::zeros( w, w, CV_8UC3 );
     for (int i=0; i < puntos.size();i=i+2){
