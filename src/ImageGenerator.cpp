@@ -9,12 +9,12 @@ ImageGenerator::~ImageGenerator()
 {
 }
 
-const float& ImageGenerator::getMaxValue(const vector<float>& inputVector) const 
+const float ImageGenerator::getMaxValue(const vector<float>& inputVector) const 
 {
     return *max_element(inputVector.begin(), inputVector.end());    
 }
 
-const float& ImageGenerator::getMinValue(const vector<float>& inputVector) const 
+const float ImageGenerator::getMinValue(const vector<float>& inputVector) const 
 {
     return *min_element(inputVector.begin(), inputVector.end());    
 }
@@ -30,7 +30,7 @@ void ImageGenerator::myLine(Mat& img, Point& start, Point& end) {
         lineType );
 }
 
-const vector<float>& ImageGenerator::normalizeVector(vector<float>& inputVector, const float& min, const float& max) 
+const vector<float> ImageGenerator::normalizeVector(vector<float>& inputVector, const float& min, const float& max) 
 {
     vector<float> normalizedVector;
     for (size_t i = 0; i < inputVector.size(); i++)     

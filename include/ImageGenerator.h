@@ -16,9 +16,9 @@ private:
 public:
     ImageGenerator(/* args */);
     ~ImageGenerator();
-    const float& getMaxValue(const vector<float>& inputVector) const;
-    const float& getMinValue(const vector<float>& inputVector) const;
-    const vector<float>& normalizeVector(vector<float>& inputVector, const float& min, const float& max);
+    const float getMaxValue(const vector<float>& inputVector) const;
+    const float getMinValue(const vector<float>& inputVector) const;
+    const vector<float> normalizeVector(vector<float>& inputVector, const float& min, const float& max);
     void createLines(Mat& hullImage, vector<float>& points);
     void constructImage();
     void myLine(Mat& img, Point& start, Point& end);
