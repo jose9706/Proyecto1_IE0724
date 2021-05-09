@@ -19,7 +19,8 @@ int main(int argc, const char **argv)
         {
             FileManager FileProcessor(FILENAME);
             std::vector<float> parsedPuntos, outputPoints;
-            FileProcessor.FileParser(parsedPuntos);
+            std::vector<std::string> stringParsedPuntos;
+            FileProcessor.FileParser(parsedPuntos, stringParsedPuntos);
             FileProcessor.printVector(parsedPuntos);
             Calculator.CalculateConvexHull(parsedPuntos, outputPoints);
         }
