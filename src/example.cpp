@@ -1,104 +1,131 @@
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+#include <vector>
+#include <algorithm>
+#include <functional>
 #define w 400
 using namespace cv;
-void MyEllipse( Mat img, double angle );
-void MyFilledCircle( Mat img, Point center );
-void MyPolygon( Mat img );
-void MyLine( Mat img, Point start, Point end );
-int main( void ){
-  char atom_window[] = "Drawing 1: Atom";
-  char rook_window[] = "Drawing 2: Rook";
-  Mat atom_image = Mat::zeros( w, w, CV_8UC3 );
-  Mat rook_image = Mat::zeros( w, w, CV_8UC3 );
-  MyEllipse( atom_image, 90 );
-  MyEllipse( atom_image, 0 );
-  MyEllipse( atom_image, 45 );
-  MyEllipse( atom_image, -45 );
-  MyFilledCircle( atom_image, Point( w/2, w/2) );
-  MyPolygon( rook_image );
-  rectangle( rook_image,
-         Point( 0, 7*w/8 ),
-         Point( w, w),
-         Scalar( 0, 255, 255 ),
-         FILLED,
-         LINE_8 );
-  MyLine( rook_image, Point( 0, 15*w/16 ), Point( w, 15*w/16 ) );
-  MyLine( rook_image, Point( w/4, 7*w/8 ), Point( w/4, w ) );
-  MyLine( rook_image, Point( w/2, 7*w/8 ), Point( w/2, w ) );
-  MyLine( rook_image, Point( 3*w/4, 7*w/8 ), Point( 3*w/4, w ) );
-  imshow( atom_window, atom_image );
-  moveWindow( atom_window, 0, 200 );
-  imshow( rook_window, rook_image );
-  moveWindow( rook_window, w, 200 );
-  waitKey( 0 );
-  return(0);
+using std::vector;
+using std::string;
+
+class ImageGenerator {
+    private:
+        char hull_window[];
+        Mat hull_image;
+        vector <float> puntos;
+        vector <float> hull_puntos;
+        vector <string> string_points;
+        vector <float> normVect;
+        vector <float> normHullVect;
+
+  /*constructor*/  
+    public:
+        ImageGenerator(vector<float>& points, vector<float>& hull_points, vector<string>& String_points)  {
+                        puntos = points;
+                        hull_puntos = hull_points;
+                        string_points = String_points;
+                        hull_window[] = "Drawing: Convex Hull";
+                        hull_image = Mat::zeros( w, w, CV_8UC3 );
+                    }
+    public:
+        //class methods
+        void MyLine(Point start, Point end ){
+            int thickness = 1;
+            int lineType = LINE_8;
+            line( hull_image,
+            start,
+            end,
+            Scalar( 0, 255, 0 ),
+            thickness,
+            lineType );
+        }
+        void MyPoints(vector<float>& puntos){
+            int radius = 5;
+            for(int i=0; i < puntos.size();i=i+2){
+                circle(hull_image, 
+                Point(puntos[i], w - puntos[i+1]),
+                radius,
+                Scalar(0,0,0),
+                FILLED);
+            }
+        }
+        const vector<float> NormalizedVector(vector<float>& points){
+            vector<float> normVector(points.size());
+            float max = *max_element(points.begin(), points.end());
+            float min = *min_element(points.begin(), points.end());
+            for (int i = 0; i < points.size(); i++) {
+                normVector[i] = (points[i] - min) / (max - min); //normalizamos el vector
+                normVector[i] = normVector[i] * 280 + 60;    //lo ajustamos al rango de 60 a 340
+            }
+            return normVector;  
+        }
+        void DrawLines(vector<float>& hull_puntos){
+            for (int i=0; i < hull_puntos.size();i=i+2){
+                if (i != hull_puntos.size()-2) {
+                MyLine( 
+                    Point(hull_puntos[i], w - hull_puntos[i+1]), 
+                    Point(hull_puntos[i+2] , w - hull_puntos[i+3]));
+                }
+                else
+                MyLine(
+                    Point(hull_puntos[i], w - hull_puntos[i+1]), 
+                    Point(hull_puntos[0], w - hull_puntos[1]));
+                }
+        }
+        void WritePoints(vector<float>& Normpoints){
+            for (int i=0; i < string_points.size();i++){
+                putText(hull_image,
+                    string_points[i],                                       //text
+                    Point(Normpoints[i*2] - 35, w -15 - Normpoints[i*2+1]), //Point
+                    FONT_HERSHEY_PLAIN,                                     //Font
+                    1,                                                      //Scale    
+                    Scalar(0,0,0),                                          //Colour
+                    1,                                                      //Thickness
+                    LINE_4);                                                //line type            
+            }
+        }
+
+        void BuildImage(){
+            //fondo blanco
+            rectangle(hull_image,
+            Point(0,0),
+            Point(w,w),
+            Scalar(255,255,255),
+            FILLED,
+            LINE_8);
+
+            normVect = NormalizedVector(puntos);
+            normHullVect = NormalizedVector(hull_puntos);
+            
+            //dibujamos los puntos
+            MyPoints(normVect);
+            
+            //ponemos el texto
+            WritePoints(normVect);
+
+            //creamos lineas
+            DrawLines(normHullVect);
+
+            //construimos la imagen  
+            imshow( hull_window, hull_image );
+            moveWindow( hull_window, 0, 200 );
+            imwrite("result.png", hull_image);
+            waitKey( 0 );
+        }
+
 }
-void MyEllipse( Mat img, double angle )
-{
-  int thickness = 2;
-  int lineType = 8;
-  ellipse( img,
-       Point( w/2, w/2 ),
-       Size( w/4, w/16 ),
-       angle,
-       0,
-       360,
-       Scalar( 255, 0, 0 ),
-       thickness,
-       lineType );
-}
-void MyFilledCircle( Mat img, Point center )
-{
-  circle( img,
-      center,
-      w/32,
-      Scalar( 0, 0, 255 ),
-      FILLED,
-      LINE_8 );
-}
-void MyPolygon( Mat img )
-{
-  int lineType = LINE_8;
-  Point rook_points[1][20];
-  rook_points[0][0]  = Point(    w/4,   7*w/8 );
-  rook_points[0][1]  = Point(  3*w/4,   7*w/8 );
-  rook_points[0][2]  = Point(  3*w/4,  13*w/16 );
-  rook_points[0][3]  = Point( 11*w/16, 13*w/16 );
-  rook_points[0][4]  = Point( 19*w/32,  3*w/8 );
-  rook_points[0][5]  = Point(  3*w/4,   3*w/8 );
-  rook_points[0][6]  = Point(  3*w/4,     w/8 );
-  rook_points[0][7]  = Point( 26*w/40,    w/8 );
-  rook_points[0][8]  = Point( 26*w/40,    w/4 );
-  rook_points[0][9]  = Point( 22*w/40,    w/4 );
-  rook_points[0][10] = Point( 22*w/40,    w/8 );
-  rook_points[0][11] = Point( 18*w/40,    w/8 );
-  rook_points[0][12] = Point( 18*w/40,    w/4 );
-  rook_points[0][13] = Point( 14*w/40,    w/4 );
-  rook_points[0][14] = Point( 14*w/40,    w/8 );
-  rook_points[0][15] = Point(    w/4,     w/8 );
-  rook_points[0][16] = Point(    w/4,   3*w/8 );
-  rook_points[0][17] = Point( 13*w/32,  3*w/8 );
-  rook_points[0][18] = Point(  5*w/16, 13*w/16 );
-  rook_points[0][19] = Point(    w/4,  13*w/16 );
-  const Point* ppt[1] = { rook_points[0] };
-  int npt[] = { 20 };
-  fillPoly( img,
-        ppt,
-        npt,
-        1,
-        Scalar( 255, 255, 255 ),
-        lineType );
-}
-void MyLine( Mat img, Point start, Point end )
-{
-  int thickness = 2;
-  int lineType = LINE_8;
-  line( img,
-    start,
-    end,
-    Scalar( 0, 0, 0 ),
-    thickness,
-    lineType );
+
+int main (void){
+    
+    vector <float> puntos{-40, 70, 80, -50, -80, -65, 0, 0, 10, 0, 10, 10, 0, 10};
+    vector <float> hull_puntos{-40, 70, 80, -50, -80, -65};
+    vector <string> string_points{"-40, 70", "80, -50", "-80, -65", "0, 0", "10, 0", "10, 10", "0, 10"};
+
+    ImageGenerator IG ( puntos, hull_puntos, string_points);
+
+    IG.BuildImage();
+
+    return(0);
 }
