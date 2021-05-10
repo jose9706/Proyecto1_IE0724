@@ -10,9 +10,9 @@ using namespace cv;
 using std::vector;
 using std::string;
 
+char hull_window[] = "Drawing: Convex Hull";
 class ImageGenerator {
-    private:
-        char hull_window[];
+    private:    
         Mat hull_image;
         vector <float> puntos;
         vector <float> hull_puntos;
@@ -26,7 +26,6 @@ class ImageGenerator {
                         puntos = points;
                         hull_puntos = hull_points;
                         string_points = String_points;
-                        hull_window[] = "Drawing: Convex Hull";
                         hull_image = Mat::zeros( w, w, CV_8UC3 );
                     }
     public:
@@ -115,7 +114,7 @@ class ImageGenerator {
             waitKey( 0 );
         }
 
-}
+};
 
 int main (void){
     
