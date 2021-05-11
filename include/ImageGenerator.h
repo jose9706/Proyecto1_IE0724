@@ -9,25 +9,23 @@
 using std::vector;
 using namespace cv;
 
+char hull_window[] = "Drawing: Convex Hull";
 class ImageGenerator
 {
 private:
-    /* data */ 
+    Mat hull_image;
+    vector <float> puntos;
+    vector <float> hull_puntos;
+    vector <string> string_points;
+    vector <float> normVect;
+    vector <float> normHullVect;
 public:
-    ImageGenerator(/* args */);
+    ImageGenerator(vector<float>& points, vector<float>& hull_points, vector<string>& String_points);
     ~ImageGenerator();
-    const float getMaxValue(const vector<float>& inputVector) const;
-    const float getMinValue(const vector<float>& inputVector) const;
-    const vector<float> normalizeVector(vector<float>& inputVector, const float& min, const float& max);
-    void createLines(Mat& hullImage, vector<float>& points);
-    void constructImage();
-    void myLine(Mat& img, Point& start, Point& end);
+    void MyLine(Point start, Point end );
+    void MyPoints(vector<float>& puntos);
+    const vector<float> NormalizedVector(vector<float>& points);
+    void DrawLines(vector<float>& hull_puntos);
+    void WritePoints(vector<float>& Normpoints);
+    void BuildImage();
 };
-
-ImageGenerator::ImageGenerator(/* args */)
-{
-}
-
-ImageGenerator::~ImageGenerator()
-{
-}
