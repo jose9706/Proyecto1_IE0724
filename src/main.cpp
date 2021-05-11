@@ -5,11 +5,12 @@
 #include <algorithm>
 #include "FileManager.h"
 #include "ConvexHull.h"
-
+#include "ImageGenerator.h"
 
 int main(int argc, const char **argv)
 {
     ConvexHull Calculator;
+    
     if (argc > 1)
     {
         std::string FILENAME = argv[1];
@@ -23,6 +24,8 @@ int main(int argc, const char **argv)
             FileProcessor.FileParser(parsedPuntos, stringParsedPuntos);
             FileProcessor.printVector(parsedPuntos);
             Calculator.CalculateConvexHull(parsedPuntos, outputPoints);
+            ImageGenerator Display(parsedPuntos,outputPoints,stringParsedPuntos);
+            Display.BuildImage();
         }
         catch (std::string FILENAME_ERR)
         {
