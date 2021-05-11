@@ -19,7 +19,7 @@ public:
 
     void printVector(std::vector<float> in);
 
-    void FileParser(std::vector<float>& parsedPuntos);
+    void FileParser(std::vector<float>& parsedPuntos, std::vector<std::string>& pairPuntos);
 
     void setPath(std::string);
 };

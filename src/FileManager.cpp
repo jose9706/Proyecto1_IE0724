@@ -17,7 +17,7 @@ public:
 
     void printVector(std::vector<float> in);
 
-    void FileParser(std::vector<float>& parsedPuntos);
+    void FileParser(std::vector<float>& parsedPuntos, std::vector<std::string>& pairPuntos);
 
     void setPath(std::string PATH) {
         this->PATH = PATH;
@@ -63,7 +63,7 @@ void FileManager::printVector(std::vector<float> in)
     std::cout << "\n";
 }
 
-void FileManager::FileParser(std::vector<float>& parsedPuntos)
+void FileManager::FileParser(std::vector<float>& parsedPuntos, std::vector<std::string>& pairPuntos)
 {
     std::fstream f(FilePath);
     if (f.is_open())
@@ -74,6 +74,7 @@ void FileManager::FileParser(std::vector<float>& parsedPuntos)
             if(text.length() > 1) {
                 std::cout << "file text " << text << "\n";
                 text.erase(remove(text.begin(), text.end(), ' '), text.end());
+                pairPuntos.push_back(text);
                 std::vector<std::string> tempParsedPuntos = split(text, ',');
                 parsedPuntos.push_back(std::stof(tempParsedPuntos[0])); //Guardo los dos puntos parseados en forma de float 
                 parsedPuntos.push_back(std::stof(tempParsedPuntos[1]));
