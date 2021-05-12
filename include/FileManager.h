@@ -9,7 +9,6 @@ class FileManager
 {
 private:
     std::string FilePath;
-    std::string PATH;
 public:
     FileManager(std::string FileName);
     FileManager();
