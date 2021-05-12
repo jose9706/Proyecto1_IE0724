@@ -1,4 +1,6 @@
-//Cambiar esto a la hora de hacer cmake
+//Esta clase, agarra los puntos en formato float del archivo txt, los puntos calculados para el hull, y los 
+//puntos en formato string, y con la libreria de OpenCV coloca el convex hull en formato visual
+ 
 #include "include\ImageGenerator.h"
 
 ImageGenerator::ImageGenerator(vector<float>& points, vector<float>& hull_points, vector<string>& String_points)
@@ -6,13 +8,15 @@ ImageGenerator::ImageGenerator(vector<float>& points, vector<float>& hull_points
     puntos = points;
     hull_puntos = hull_points;
     string_points = String_points;
-    hull_image = Mat::zeros( w, w, CV_8UC3 );
+    hull_image = Mat::zeros( w, w, CV_8UC3 ); //este objeto es una matriz de ceros de tamano wxw = pixeles imagen
 }
 
 ImageGenerator::~ImageGenerator()
 {
 }
 
+//Esta funcion es llamada por la funcion que dibuja el poligono para dibujar una linea.
+//Dibuja de start a end
 void ImageGenerator::MyLine(Point start, Point end)
 {
     int thickness = 1;
@@ -25,6 +29,8 @@ void ImageGenerator::MyLine(Point start, Point end)
     lineType ); 
 }
 
+//Usamos esto porque dibujar circulos rellenados equivale a dibujar los puntos en el plano
+//le enviamos todos los puntos para que haga circulos
 void ImageGenerator::MyPoints(vector<float>& puntos)
 {
     int radius = 5;
@@ -37,6 +43,8 @@ void ImageGenerator::MyPoints(vector<float>& puntos)
     }   
 }
 
+//Es necesario normalizar el vector para poder escalar los puntos a los margenes de la imagen
+//normaliza todos los puntos del vector que se le otorge
 const vector<float> ImageGenerator::NormalizedVector(vector<float>& points) {
     vector<float> normVector(points.size());
     float max = *max_element(points.begin(), points.end());
@@ -48,6 +56,8 @@ const vector<float> ImageGenerator::NormalizedVector(vector<float>& points) {
     return normVector; 
 }
 
+//Otorgamos a myline los puntos que necesita para dibujar las lineas que dibujan el poligono
+//en este caso solo le pasamos los puntos del hull 
 void ImageGenerator::DrawLines(vector<float>& hull_puntos)
 {
     for (int i=0; i < hull_puntos.size();i=i+2){
@@ -63,6 +73,8 @@ void ImageGenerator::DrawLines(vector<float>& hull_puntos)
         }
 }
 
+//Escribimos los valores de los puntos en la imagen, 
+//Le pasamos los puntos normalizados para que logre ubicar correctamente donde debe escribirlos
 void ImageGenerator::WritePoints(vector<float>& Normpoints) 
 {
     for (int i=0; i < string_points.size();i++){
@@ -77,6 +89,7 @@ void ImageGenerator::WritePoints(vector<float>& Normpoints)
         }
 }
 
+//Funcion principal que llamamos para fabricar la imagen
 void ImageGenerator::BuildImage()
 {
     //fondo blanco
@@ -87,6 +100,7 @@ void ImageGenerator::BuildImage()
     FILLED,
     LINE_8);
 
+    //puntos normalizados (totales + hull)
     normVect = NormalizedVector(puntos);
     normHullVect = NormalizedVector(hull_puntos);
     
