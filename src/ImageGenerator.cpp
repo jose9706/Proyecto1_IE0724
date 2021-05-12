@@ -1,5 +1,5 @@
-//Cambiar esto a la hora de hacer cmake
-#include "include\ImageGenerator.h"
+#include "ImageGenerator.h"
+#define hull_window "Drawing: Convex Hull"
 
 ImageGenerator::ImageGenerator(vector<float>& points, vector<float>& hull_points, vector<string>& String_points)
 {
