@@ -7,9 +7,9 @@
 #include <opencv2/imgproc.hpp>
 #define w 400
 using std::vector;
+using std::string;
 using namespace cv;
 
-char hull_window[] = "Drawing: Convex Hull";
 class ImageGenerator
 {
 private:
