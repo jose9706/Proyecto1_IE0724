@@ -1,5 +1,5 @@
-//Cambiar esto a la hora de hacer cmake
-#include "include\ImageGenerator.h"
+#include "ImageGenerator.h"
+#define hull_window "Drawing: Convex Hull"
 
 ImageGenerator::ImageGenerator(vector<float>& points, vector<float>& hull_points, vector<string>& String_points)
 {
@@ -15,12 +15,12 @@ ImageGenerator::~ImageGenerator()
 
 void ImageGenerator::MyLine(Point start, Point end)
 {
-    int thickness = 1;
+    int thickness = 1.5;
     int lineType = LINE_8;
     line( hull_image,
     start,
     end,
-    Scalar( 0, 255, 0 ),
+    Scalar(49, 148, 26 ), //BGR
     thickness,
     lineType ); 
 }

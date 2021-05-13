@@ -1,31 +1,11 @@
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <sstream>
-#include <algorithm>
-class FileManager
-{
-private:
-    std::string FilePath;
-    std::string PATH;
-
-public:
-    FileManager(std::string FileName);
-    FileManager();
-    ~FileManager();
-    std::vector<std::string> split(const std::string &s, char delim);
-
-    void printVector(std::vector<float> in);
-
-    void FileParser(std::vector<float>& parsedPuntos, std::vector<std::string>& pairPuntos);
-
-    void setPath(std::string PATH) {
-        this->PATH = PATH;
-    }
-};
+#include "FileManager.h"
 FileManager::FileManager() {
 
 }
+/*
+* Constructor toma el cmino al archivo que se ve a parsear 
+* @param FileNamePath string que contiene el path al archivo a utilizar 
+*/
 FileManager::FileManager(std::string FileNamePath)
 {
     FilePath = FileNamePath;
@@ -53,7 +33,10 @@ std::vector<std::string> FileManager::split(const std::string &s, char delim)
     }
     return elems;
 }
-
+/*
+* Funcion toma un vector de entrada y lo imprime en consola
+* @param in vector a imprimir
+*/
 void FileManager::printVector(std::vector<float> in)
 {
     for (auto i = in.begin(); i != in.end(); i++)
@@ -62,7 +45,11 @@ void FileManager::printVector(std::vector<float> in)
     }
     std::cout << "\n";
 }
-
+/*
+* Funcion parsea el archivo de entrada utilizando varias funciones, genera exception el archivo no existe. 
+* @param parsedPuntos referencia al vector donde se van a guardar todos puntos separados
+* @param pairPuntos referencia a un vector donde se guardan los pares de puntos en formato string
+*/
 void FileManager::FileParser(std::vector<float>& parsedPuntos, std::vector<std::string>& pairPuntos)
 {
     std::fstream f(FilePath);
@@ -72,14 +59,11 @@ void FileManager::FileParser(std::vector<float>& parsedPuntos, std::vector<std::
         while (getline(f, text))
         {
             if(text.length() > 1) {
-                std::cout << "file text " << text << "\n";
                 text.erase(remove(text.begin(), text.end(), ' '), text.end());
                 pairPuntos.push_back(text);
                 std::vector<std::string> tempParsedPuntos = split(text, ',');
-                parsedPuntos.push_back(std::stof(tempParsedPuntos[0])); //Guardo los dos puntos parseados en forma de float 
+                parsedPuntos.push_back(std::stof(tempParsedPuntos[0])); 
                 parsedPuntos.push_back(std::stof(tempParsedPuntos[1]));
-                //printVector(parsedPuntos);
-                //parsedPuntos.push_back();
             }
         }
     }

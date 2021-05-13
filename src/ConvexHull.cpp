@@ -1,30 +1,4 @@
-#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
-#include <CGAL/convex_hull_2.h>
-#include <CGAL/Convex_hull_traits_adapter_2.h>
-#include <CGAL/property_map.h>
-#include <vector>
-#include <numeric>
-#include <iostream>
-#include <string>
-#include "FileManager.h"
-
-using std::vector;
-using std::string;
-typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
-typedef K::Point_2 Point_2;
-typedef CGAL::Convex_hull_traits_adapter_2<K,
-                                           CGAL::Pointer_property_map<Point_2>::type>
-    Convex_hull_traits_2;
-
-class ConvexHull : public FileManager
-{
-public:
-    ConvexHull();
-    ~ConvexHull();
-    void CalculateConvexHull(vector<float>& inputPoints, vector<float>& outputPoints);
-    void pointVectorConstructor(vector<float>& inputPoints, vector<Point_2>& out);
-    void convertStringToVectorFloat(std::stringstream& in, vector<float>& result);
-};
+#include "ConvexHull.h"
 
 ConvexHull::ConvexHull()
 {
@@ -32,7 +6,11 @@ ConvexHull::ConvexHull()
 ConvexHull::~ConvexHull()
 {
 }
-
+/*
+* Funcion construye el vector necesario para CGAL a partir de sus entradas.
+* @param inputPoints referencia al vector de entrada.
+* @param out referencia al vector de salida 
+*/
 void ConvexHull::pointVectorConstructor(vector<float>& inputPoints, vector<Point_2>& out)
 {
     for (auto i = 0; i < inputPoints.size(); i = i + 2)
@@ -40,7 +18,12 @@ void ConvexHull::pointVectorConstructor(vector<float>& inputPoints, vector<Point
         out.push_back(Point_2(inputPoints[i], inputPoints[i+1]));
     }
 }
-
+/*
+* Funcion convierte un stringstream a un vector de floats, esto por la forma que 
+* CGAL genera los puntos de salida.
+* @param in referencia de puntos de entrada
+* @param result vector de salida donde se guardan los puntos ya convertidos
+*/
 void ConvexHull::convertStringToVectorFloat(std::stringstream& in, vector<float>& result) {
     vector<string> temp = split(in.str(), ' ');
     for (auto i = 0; i < temp.size(); i++) {
@@ -48,6 +31,11 @@ void ConvexHull::convertStringToVectorFloat(std::stringstream& in, vector<float>
     }
 }
 
+/*
+* Funcion calcula el ConvexHull de los puntos de entrada y los retorna por medio de otro vector.
+* @param inputPoints vector con los puntos de entrada
+* @param outputPoints vector con los puntos que construyen el convexHull
+*/
 void ConvexHull::CalculateConvexHull(vector<float>& inputPoints, vector<float>& outputPoints)
 {
     vector<Point_2> points;
