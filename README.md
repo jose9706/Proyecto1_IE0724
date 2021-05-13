@@ -4,10 +4,12 @@ En este proyecto, se desarrolló un programa capaz de calcular, a partir de una 
 
 ## Librerias necesarias
 
-```librerias
-CGAL
-OpenCV
-```
+Se necesitan las siguientes librerias:
+
+-[CGAL](https://doc.cgal.org/latest/Manual/general_intro.html)
+
+-[OpenCV](https://docs.opencv.org/master/d2/de6/tutorial_py_setup_in_ubuntu.html)
+
 
 ## Uso
 
