@@ -15,12 +15,12 @@ ImageGenerator::~ImageGenerator()
 
 void ImageGenerator::MyLine(Point start, Point end)
 {
-    int thickness = 1;
+    int thickness = 1.5;
     int lineType = LINE_8;
     line( hull_image,
     start,
     end,
-    Scalar( 0, 255, 0 ),
+    Scalar(49, 148, 26 ), //BGR
     thickness,
     lineType ); 
 }
