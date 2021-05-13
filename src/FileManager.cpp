@@ -59,7 +59,6 @@ void FileManager::FileParser(std::vector<float>& parsedPuntos, std::vector<std::
         while (getline(f, text))
         {
             if(text.length() > 1) {
-                std::cout << "file text " << text << "\n";
                 text.erase(remove(text.begin(), text.end(), ' '), text.end());
                 pairPuntos.push_back(text);
                 std::vector<std::string> tempParsedPuntos = split(text, ',');
