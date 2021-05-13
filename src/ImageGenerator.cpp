@@ -2,7 +2,7 @@
 //puntos en formato string, y con la libreria de OpenCV coloca el convex hull en formato visual
  
 #include "include\ImageGenerator.h"
-
+#define hull_window "Drawing: Convex Hull"
 ImageGenerator::ImageGenerator(vector<float>& points, vector<float>& hull_points, vector<string>& String_points)
 {
     puntos = points;
