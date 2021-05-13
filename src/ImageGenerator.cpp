@@ -46,7 +46,8 @@ void ImageGenerator::MyPoints(vector<float>& puntos)
 
 //Es necesario normalizar el vector para poder escalar los puntos a los margenes de la imagen
 //normaliza todos los puntos del vector que se le otorge
-const vector<float> ImageGenerator::NormalizedVector(vector<float>& points) {
+const vector<float> ImageGenerator::NormalizedVector(vector<float>& points) 
+{
     vector<float> normVector(points.size());
     float max = *max_element(points.begin(), points.end());
     float min = *min_element(points.begin(), points.end());
