@@ -62,9 +62,23 @@ int FileManager::FileParser(std::vector<float>& parsedPuntos, std::vector<std::s
                 text.erase(remove(text.begin(), text.end(), ' '), text.end());
                 pairPuntos.push_back(text);
                 std::vector<std::string> tempParsedPuntos = split(text, ',');
-                parsedPuntos.push_back(std::stof(tempParsedPuntos[0])); 
-                parsedPuntos.push_back(std::stof(tempParsedPuntos[1]));
+                if (text.find(',') != std::string::npos)
+                    try{
+                        parsedPuntos.push_back(std::stof(tempParsedPuntos[0])); 
+                        parsedPuntos.push_back(std::stof(tempParsedPuntos[1]));
+                    }
+                    catch (const std::invalid_argument& ia){
+                        std::cout << "Dato ingresado no es valido\n";
+                        return -1;
+                    }
+                else{ 
+                    std::cout << "Dato ingresado no es valido\n";
+                    return -1;
+                    }    
             }
+        }
+        if (parsedPuntos.size() < 6){
+            return -1;
         }
         return 1;
     }
