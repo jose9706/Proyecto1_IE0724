@@ -1,6 +1,6 @@
-# Proyecto1_IE0724
+# Laboratorio 4
 
-En este proyecto, se desarrolló un programa capaz de calcular, a partir de una entrada en formato .txt que contiene una serie de puntos, cuales de esos puntos conforman el convex hull del grupo. A parte de eso, logra construir una imagen en formato .png para visualizar la forma del convex hull junto con los puntos.  
+En base a lo hecho en el proyecto 1, se desarrollo este programa Gtest, para hacer las pruebas de validacion del codigo hecho. Se modifico el codigo del proyecto para que manejara excepciones y en caso de que se fuerce una el programa no se caiga. 
 
 ## Librerias necesarias
 
