@@ -20,7 +20,7 @@ public:
     ~FileManager();
     std::vector<std::string> split(const std::string &s, char delim);
     void printVector(std::vector<float> in);
-    void FileParser(std::vector<float>& parsedPuntos, std::vector<std::string>& pairPuntos);
+    int FileParser(std::vector<float>& parsedPuntos, std::vector<std::string>& pairPuntos);
     void setPath(std::string);
 };
 

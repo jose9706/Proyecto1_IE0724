@@ -50,7 +50,7 @@ void FileManager::printVector(std::vector<float> in)
 * @param parsedPuntos referencia al vector donde se van a guardar todos puntos separados
 * @param pairPuntos referencia a un vector donde se guardan los pares de puntos en formato string
 */
-void FileManager::FileParser(std::vector<float>& parsedPuntos, std::vector<std::string>& pairPuntos)
+int FileManager::FileParser(std::vector<float>& parsedPuntos, std::vector<std::string>& pairPuntos)
 {
     std::fstream f(FilePath);
     if (f.is_open())
@@ -66,10 +66,11 @@ void FileManager::FileParser(std::vector<float>& parsedPuntos, std::vector<std::
                 parsedPuntos.push_back(std::stof(tempParsedPuntos[1]));
             }
         }
+        return 1;
     }
     else
     {
-        throw FilePath;
+        return 0;
     }
 }
 

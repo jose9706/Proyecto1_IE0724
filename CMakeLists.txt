@@ -33,8 +33,8 @@ if ( NOT Boost_FOUND )
 endif()
 
 
-set(SOURCES src/main.cpp src/ConvexHull.cpp src/FileManager.cpp src/ImageGenerator.cpp)
-file(GLOB SOURCES_EXE "src/*.cpp")
+set(SOURCES test/main.cpp src/ConvexHull.cpp src/FileManager.cpp src/ImageGenerator.cpp)
+file(GLOB SOURCES_EXE "src/*.cpp" "test/*.cpp")
 add_compile_options("-W" "-Wall" "-pedantic")
 add_executable(exe ${SOURCES_EXE})
 add_to_cached_list( CGAL_EXECUTABLE_TARGETS exe )
