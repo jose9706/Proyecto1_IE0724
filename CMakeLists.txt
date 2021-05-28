@@ -7,6 +7,8 @@ find_package( OpenCV REQUIRED )
 include_directories( ${OpenCV_INCLUDE_DIRS} include)
 set(CMAKE_BUILD_TYPE Release)
 
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
 
 # CGAL and its components
 find_package( CGAL QUIET COMPONENTS  )
@@ -38,4 +40,4 @@ add_executable(exe ${SOURCES_EXE})
 add_to_cached_list( CGAL_EXECUTABLE_TARGETS exe )
 
 # Link the executable to CGAL and third-party libraries
-target_link_libraries(exe PRIVATE CGAL::CGAL ${OpenCV_LIBS} )
+target_link_libraries(exe PRIVATE CGAL::CGAL ${OpenCV_LIBS} ${GTEST_LIBRARIES} pthread)
