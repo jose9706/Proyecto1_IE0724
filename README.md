@@ -13,10 +13,17 @@ Se necesitan las siguientes librerias:
 
 ## Uso
 
-En la carpeta inicial, se deben correr los siguientes comandos
+En la carpeta que dice build, se deben correr los siguientes comandos
 
 ```bash
-cmake . 
+cmake .. 
 make
-./exe <archivo txt con las entradas> #retorna los puntos leidos + la imagen
+./exe 
+```
+Lo anterior imprime todas las pruebas una vez y dice si pasaron o no las pruebas. 
+
+En caso de querer correr la prueba 2 10 veces se debe usar el siguiente comando de ejecucion
+
+```bash
+./exe --gtest_filter=ConvexHull.positive --gtest_repeat=10
 ```
