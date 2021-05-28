@@ -17,7 +17,6 @@ TEST(FileInput, positive) {
 }
 
 TEST(ConvexHull, positive) {
-    srand((unsigned) time(0));
     std::vector<float> testList;
     ConvexHull tester;
     int listLength = 3 + (rand() % 97);
