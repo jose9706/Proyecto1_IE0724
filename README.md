@@ -2,6 +2,8 @@
 
 En base a lo hecho en el proyecto 1, se desarrollo este programa Gtest, para hacer las pruebas de validacion del codigo hecho. Se modifico el codigo del proyecto para que manejara excepciones y en caso de que se fuerce una el programa no se caiga. 
 
+Se intento configurar el docker pero opencv no quiere compilar en el docker por lo que se adjunta el archivo docker pero solo se pueden los codigos gtest
+
 ## Librerias necesarias
 
 Se necesitan las siguientes librerias:
@@ -13,7 +15,7 @@ Se necesitan las siguientes librerias:
 
 ## Uso
 
-En la carpeta que dice build, se deben correr los siguientes comandos
+En la carpeta que dice build2, se deben correr los siguientes comandos
 
 ```bash
 cmake .. 
